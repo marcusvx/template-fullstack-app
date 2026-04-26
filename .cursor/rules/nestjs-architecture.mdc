@@ -1,0 +1,41 @@
+---
+description: NestJS modules, DI, and layering conventions
+globs: src/**/*.ts
+alwaysApply: false
+---
+
+# NestJS architecture
+
+## Modules
+
+- Prefer **feature modules** (`AccountsModule`, `OrdersModule`) imported from `AppModule` instead of registering many controllers/providers only in `AppModule`.
+- Put **controllers and providers** that belong together in the same feature module.
+- Use `exports` only for providers other modules must inject; keep the public surface of a module small.
+
+## Dependency injection
+
+- Inject collaborators via **constructor injection**; avoid `ModuleRef.get()` unless you need dynamic resolution.
+- Mark injectable classes with `@Injectable()` and register them in `providers` (or use `@Global()` sparingly for truly cross-cutting modules).
+- Prefer **interfaces + tokens** only when you need multiple implementations or testing seams; otherwise concrete classes are fine.
+
+## Controllers and services
+
+- **Controllers**: HTTP mapping, status codes, request/response shaping. No business rules or direct persistence orchestration.
+- **Services**: Business logic and use-case orchestration. Reusable from CLI, jobs, or other entry points later.
+- Avoid **circular imports** between modules; extract shared code to a small module or a dedicated file both sides import.
+
+## Example
+
+```typescript
+// ❌ BAD — business logic and hard-coded data in the controller
+@Get()
+getAll() {
+  return { id: 1, name: 'John Doe' };
+}
+
+// ✅ GOOD — delegate to a service
+@Get()
+getAll() {
+  return this.accountsService.findAll();
+}
+```

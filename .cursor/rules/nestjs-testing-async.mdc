@@ -1,0 +1,35 @@
+---
+description: NestJS testing, async patterns, and lifecycle
+globs: src/**/*.ts
+alwaysApply: false
+---
+
+# Testing and async
+
+## Unit and e2e tests
+
+- Use **`@nestjs/testing`** `Test.createTestingModule({ ... }).compile()` for unit tests; override providers with `.overrideProvider()` when mocking I/O.
+- For HTTP e2e, use **`supertest`** against `INestApplication` created from `Test.createTestingModule` + `app.init()`; close the app in `afterAll` to avoid leaks.
+
+## Async and lifecycle
+
+- Prefer **`async`/`await`** over raw `Promise` chains in controllers and services.
+- Use **`OnModuleInit`**, **`OnModuleDestroy`**, or **`BeforeApplicationShutdown`** when you need to connect/disconnect clients or flush resources; avoid heavy work in constructors.
+
+## Configuration and env
+
+- Read configuration via **`@nestjs/config`** `ConfigService` or a typed config module instead of scattering `process.env` across the codebase.
+- Validate env at startup (e.g. **Joi** or **zod** schema) so misconfiguration fails fast.
+
+## Example
+
+```typescript
+// ❌ BAD — env scattered, no startup validation
+const url = process.env.DATABASE_URL;
+
+// ✅ GOOD — inject ConfigService or a dedicated config provider
+constructor(private readonly config: ConfigService) {}
+get url(): string {
+  return this.config.getOrThrow<string>('DATABASE_URL');
+}
+```

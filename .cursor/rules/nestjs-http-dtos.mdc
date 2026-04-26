@@ -1,0 +1,38 @@
+---
+description: NestJS HTTP layer — DTOs, validation, pipes, and errors
+globs: src/**/*.ts
+alwaysApply: false
+---
+
+# HTTP, DTOs, and validation
+
+## DTOs and typing
+
+- Use **classes** (not interfaces) for request bodies when you use `class-validator` / `class-transformer`, because they exist at runtime.
+- Prefer the suffix **`*.dto.ts`** for request/response DTOs (e.g. `CreateAccountDto`) so they are easy to find; keep them colocated with the feature or under a `dto/` folder per feature.
+- Use **`ParseUUIDPipe`**, **`ParseIntPipe`**, or **`ParseFloatPipe`** on `@Param()` when the route expects typed ids or numbers.
+
+## Validation
+
+- Enable a global **`ValidationPipe`** in `main.ts` with `whitelist: true`, `forbidNonWhitelisted: true`, and `transform: true` where appropriate so unknown fields are stripped and types are coerced safely.
+- Decorate DTO properties with **`class-validator`** decorators (`@IsString()`, `@IsUUID()`, `@IsOptional()`, etc.) instead of validating manually in controllers.
+
+## Errors and responses
+
+- Throw **`HttpException`** or built-ins (`NotFoundException`, `BadRequestException`, …) from services or controllers; avoid `console.log` for expected flows — use Nest **`Logger`** for operational logs.
+- Return **consistent shapes** for errors (message, optional `code`) if the API is public; document status codes per endpoint.
+
+## Example
+
+```typescript
+// ❌ BAD — no validation metadata, body is any-shaped
+create(@Body() body: CreateAccountRequest) {
+  return body;
+}
+
+// ✅ GOOD — DTO + validation decorators + typed return
+@Post()
+create(@Body() dto: CreateAccountDto) {
+  return this.accountsService.create(dto);
+}
+```
