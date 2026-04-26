@@ -20,7 +20,7 @@ Monorepo template for a full-stack app with a NestJS backend, React frontend, an
 
 - Node.js 20+
 - npm 10+
-- PostgreSQL 16+ running locally
+- PostgreSQL 18+ running locally
 
 ### For Docker-based development
 
@@ -42,6 +42,72 @@ Default backend database settings:
 - `DB_USER=postgres`
 - `DB_PASSWORD=postgres`
 - `DB_NAME=template_app`
+
+## Rename the template to your app name
+
+Use this when turning `template-app` into your real project name.
+
+### 1) Pick naming convention first
+
+Example for app name `acme-pay`:
+
+- npm workspace scope: `@acme/*`
+- root package name: `acme-pay`
+- database name: `acme_pay` (snake_case is common for Postgres)
+- docker container names: `acme-postgres`, `acme-backend`
+
+### 2) Update key config files
+
+- Root package:
+  - `package.json` -> `"name"`
+  - `package-lock.json` -> top-level `"name"` fields
+- Workspace package names:
+  - `apps/backend/package.json` -> `"name": "@template/backend"`
+  - `apps/frontend/package.json` -> `"name": "@template/frontend"`
+- Root scripts that reference workspace names:
+  - `package.json` scripts using `--workspace @template/backend` / `@template/frontend`
+- Database defaults:
+  - `apps/backend/.env.example` -> `DB_NAME`
+  - `apps/backend/src/app.module.ts` -> fallback DB name in `ConfigService.get(...)`
+- Docker naming and DB defaults:
+  - `docker-compose.yml` -> service container names and `POSTGRES_DB` / `DB_NAME`
+
+### 3) Replace remaining `template` references
+
+Install `ripgrep` if needed:
+
+```bash
+# macOS
+brew install ripgrep
+
+# Windows (Chocolatey)
+choco install ripgrep
+
+# Ubuntu/Debian
+sudo apt install ripgrep
+```
+
+```bash
+# preview all matches
+rg "template"
+
+# then update intentionally (recommended in IDE multi-file search)
+```
+
+### 4) Verify everything still works
+
+```bash
+npm install
+npm run build
+npm run dev
+```
+
+For Docker flow:
+
+```bash
+npm run docker:up
+npm run docker:logs
+```
 
 ## Install dependencies
 
