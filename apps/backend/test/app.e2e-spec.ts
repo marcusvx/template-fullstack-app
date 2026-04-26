@@ -1,5 +1,6 @@
 import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
+import type { Server } from 'node:http';
 import request from 'supertest';
 import { AppModule } from '../src/app.module';
 
@@ -16,7 +17,9 @@ describe('Accounts (e2e)', () => {
   });
 
   it('/accounts (GET)', () => {
-    return request(app.getHttpServer()).get('/accounts').expect(200);
+    const httpServer = app.getHttpServer() as Server;
+
+    return request(httpServer).get('/accounts').expect(200);
   });
 
   afterEach(async () => {
