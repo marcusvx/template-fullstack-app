@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { DataSourceOptions } from 'typeorm';
-import { UserAccountEntity } from '../accounts/entities/user-account.entity';
+import { MessageEntity } from '../messages/entities/message.entity';
 
 const dbPort = Number.parseInt(process.env.DB_PORT ?? '5432', 10);
 
@@ -12,16 +12,13 @@ const baseOptions: DataSourceOptions = {
   username: process.env.DB_USER ?? 'postgres',
   password: process.env.DB_PASSWORD ?? 'postgres',
   database: process.env.DB_NAME ?? 'template_app',
-  entities: [UserAccountEntity],
+  entities: [MessageEntity],
   synchronize: false,
 };
 
 export const typeOrmDataSourceOptions: DataSourceOptions = {
   ...baseOptions,
-  migrations: [
-    'src/database/migrations/*{.ts,.js}',
-    'dist/database/migrations/*{.ts,.js}',
-  ],
+  migrations: [`${__dirname}/migrations/*{.ts,.js}`],
 };
 
 export const typeOrmModuleOptions: TypeOrmModuleOptions = {

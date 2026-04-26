@@ -10,7 +10,7 @@ A small full-stack starter for building MVPs quickly with a NestJS API, React fr
 
 ## Project Layout
 
-- `apps/backend` - NestJS API with health checks, account endpoints, TypeORM migrations, and seed data
+- `apps/backend` - NestJS API with health checks, message endpoints, TypeORM migrations, and seed data
 - `apps/frontend` - React + Vite app wired to the backend through `VITE_API_BASE_URL`
 - `docker-compose.yml` - PostgreSQL 18 and backend services for local development
 
@@ -39,17 +39,22 @@ This template targets PostgreSQL 18 and uses UUID v7 primary keys for time-order
 # run migrations and seed data
 npm run --workspace @template/backend db:setup
 
+# create database if missing (safe to run multiple times)
+npm run --workspace @template/backend db:ensure
+
 # run only migrations
 npm run --workspace @template/backend migration:run
 
 # seed default data
-npm run --workspace @template/backend seed:account
+npm run --workspace @template/backend db:seed
 
 # rollback last migration
 npm run --workspace @template/backend migration:revert
 ```
 
 Default database settings are in `apps/backend/.env.example`.
+
+Seeds are registered in `apps/backend/src/database/seed.ts`. For new entities, add a seed file under `apps/backend/src/database/seeds` and use `seedRecords(...)` to define batch records with an idempotency `where` clause and insert `data`.
 
 ## Development Commands
 

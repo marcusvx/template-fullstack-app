@@ -9,7 +9,7 @@ alwaysApply: false
 ## DTOs and typing
 
 - Use **classes** (not interfaces) for request bodies when you use `class-validator` / `class-transformer`, because they exist at runtime.
-- Prefer the suffix **`*.dto.ts`** for request/response DTOs (e.g. `CreateAccountDto`) so they are easy to find; keep them colocated with the feature or under a `dto/` folder per feature.
+- Prefer the suffix **`*.dto.ts`** for request/response DTOs (e.g. `CreateMessageDto`) so they are easy to find; keep them colocated with the feature or under a `dto/` folder per feature.
 - Use **`ParseUUIDPipe`**, **`ParseIntPipe`**, or **`ParseFloatPipe`** on `@Param()` when the route expects typed ids or numbers.
 
 ## Validation
@@ -26,13 +26,13 @@ alwaysApply: false
 
 ```typescript
 // ❌ BAD — no validation metadata, body is any-shaped
-create(@Body() body: CreateAccountRequest) {
+create(@Body() body: CreateMessageRequest) {
   return body;
 }
 
 // ✅ GOOD — DTO + validation decorators + typed return
 @Post()
-create(@Body() dto: CreateAccountDto) {
-  return this.accountsService.create(dto);
+create(@Body() dto: CreateMessageDto) {
+  return this.messagesService.create(dto);
 }
 ```

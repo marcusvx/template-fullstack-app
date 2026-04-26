@@ -8,7 +8,7 @@ alwaysApply: false
 
 ## Modules
 
-- Prefer **feature modules** (`AccountsModule`, `OrdersModule`) imported from `AppModule` instead of registering many controllers/providers only in `AppModule`.
+- Prefer **feature modules** (`MessagesModule`, `OrdersModule`) imported from `AppModule` instead of registering many controllers/providers only in `AppModule`.
 - Put **controllers and providers** that belong together in the same feature module.
 - Use `exports` only for providers other modules must inject; keep the public surface of a module small.
 
@@ -36,6 +36,6 @@ getAll() {
 // ✅ GOOD — delegate to a service
 @Get()
 getAll() {
-  return this.accountsService.findAll();
+  return this.messagesService.findAll();
 }
 ```

@@ -4,7 +4,7 @@ import type { Server } from 'node:http';
 import request from 'supertest';
 import { AppModule } from '../src/app.module';
 
-describe('Accounts (e2e)', () => {
+describe('Messages (e2e)', () => {
   let app: INestApplication;
 
   beforeEach(async () => {
@@ -16,10 +16,10 @@ describe('Accounts (e2e)', () => {
     await app.init();
   });
 
-  it('/accounts (GET)', () => {
+  it('/messages (GET)', () => {
     const httpServer = app.getHttpServer() as Server;
 
-    return request(httpServer).get('/accounts').expect(200);
+    return request(httpServer).get('/messages').expect(200);
   });
 
   afterEach(async () => {
