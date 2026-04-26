@@ -1,8 +1,4 @@
-import { Alert, Button, Card, Layout, Space, Typography } from 'antd';
 import { useState } from 'react';
-
-const { Header, Content } = Layout;
-const { Title, Paragraph } = Typography;
 
 export function App() {
   const [statusMessage, setStatusMessage] = useState('Not connected yet');
@@ -36,34 +32,43 @@ export function App() {
   };
 
   return (
-    <Layout style={{ minHeight: '100vh' }}>
-      <Header>
-        <Title style={{ color: '#fff', margin: 0 }} level={4}>
-          template Scaffold
-        </Title>
-      </Header>
-      <Content style={{ padding: 24 }}>
-        <Card>
-          <Space direction="vertical" size="middle">
-            <Title level={3}>React + Vite + Ant Design</Title>
-            <Paragraph>
-              This frontend app is ready to connect with the NestJS API in
-              <code>apps/backend</code>.
-            </Paragraph>
-            <Paragraph>
-              API URL from env: <code>{import.meta.env.VITE_API_BASE_URL}</code>
-            </Paragraph>
-            <Button loading={loading} onClick={checkBackendConnection} type="primary">
-              Test Backend Connection
-            </Button>
-            <Alert
-              message={statusMessage}
-              showIcon
-              type={error ? 'error' : 'success'}
-            />
-          </Space>
-        </Card>
-      </Content>
-    </Layout>
+    <div className="min-h-screen bg-slate-100 text-slate-900">
+      <header className="bg-slate-900 px-6 py-4 text-white shadow-sm">
+        <h1 className="text-lg font-semibold">template Scaffold</h1>
+      </header>
+      <main className="mx-auto max-w-3xl px-6 py-8">
+        <section className="space-y-4 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+          <h2 className="text-2xl font-semibold">React + Vite + Tailwind CSS</h2>
+          <p>
+            This frontend app is ready to connect with the NestJS API in{' '}
+            <code className="rounded bg-slate-100 px-1 py-0.5 text-sm">apps/backend</code>.
+          </p>
+          <p>
+            API URL from env:{' '}
+            <code className="rounded bg-slate-100 px-1 py-0.5 text-sm">
+              {import.meta.env.VITE_API_BASE_URL}
+            </code>
+          </p>
+          <button
+            className="inline-flex min-h-10 items-center justify-center rounded-md bg-blue-600 px-4 py-2 font-medium text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
+            disabled={loading}
+            onClick={checkBackendConnection}
+            type="button"
+          >
+            {loading ? 'Checking...' : 'Test Backend Connection'}
+          </button>
+          <div
+            className={`rounded-md border px-4 py-3 text-sm ${
+              error
+                ? 'border-red-200 bg-red-50 text-red-700'
+                : 'border-emerald-200 bg-emerald-50 text-emerald-700'
+            }`}
+            role="status"
+          >
+            {statusMessage}
+          </div>
+        </section>
+      </main>
+    </div>
   );
 }

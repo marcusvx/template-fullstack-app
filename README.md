@@ -11,7 +11,7 @@ Monorepo template for a full-stack app with a NestJS backend, React frontend, an
 ## Frameworks and libraries
 
 - **Backend:** NestJS, TypeORM, PostgreSQL, class-validator, class-transformer
-- **Frontend:** React, Vite, Ant Design
+- **Frontend:** React, Vite, Tailwind CSS
 - **Tooling:** TypeScript, ESLint, Jest, npm workspaces, Docker, Docker Compose
 
 ## Prerequisites
