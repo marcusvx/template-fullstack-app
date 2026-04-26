@@ -18,7 +18,10 @@ const baseOptions: DataSourceOptions = {
 
 export const typeOrmDataSourceOptions: DataSourceOptions = {
   ...baseOptions,
-  migrations: ['src/database/migrations/*{.ts,.js}', 'dist/database/migrations/*{.ts,.js}'],
+  migrations: [
+    'src/database/migrations/*{.ts,.js}',
+    'dist/database/migrations/*{.ts,.js}',
+  ],
 };
 
 export const typeOrmModuleOptions: TypeOrmModuleOptions = {
