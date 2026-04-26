@@ -35,6 +35,12 @@ Backend env file lives at `apps/backend/.env`:
 cp apps/backend/.env.example apps/backend/.env
 ```
 
+Frontend env file lives at `apps/frontend/.env`:
+
+```bash
+cp apps/frontend/.env.example apps/frontend/.env
+```
+
 Default backend database settings:
 
 - `DB_HOST=localhost`
@@ -42,6 +48,11 @@ Default backend database settings:
 - `DB_USER=postgres`
 - `DB_PASSWORD=postgres`
 - `DB_NAME=template_app`
+- `FRONTEND_ORIGIN=http://localhost:5173`
+
+Frontend API setting:
+
+- `VITE_API_BASE_URL=http://localhost:3000`
 
 ## Rename the template to your app name
 

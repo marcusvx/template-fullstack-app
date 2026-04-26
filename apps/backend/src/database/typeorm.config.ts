@@ -13,11 +13,13 @@ const baseOptions: DataSourceOptions = {
   password: process.env.DB_PASSWORD ?? 'postgres',
   database: process.env.DB_NAME ?? 'template_app',
   entities: [UserAccountEntity],
-  migrations: ['src/database/migrations/*{.ts,.js}', 'dist/database/migrations/*{.ts,.js}'],
   synchronize: false,
 };
 
-export const typeOrmDataSourceOptions: DataSourceOptions = baseOptions;
+export const typeOrmDataSourceOptions: DataSourceOptions = {
+  ...baseOptions,
+  migrations: ['src/database/migrations/*{.ts,.js}', 'dist/database/migrations/*{.ts,.js}'],
+};
 
 export const typeOrmModuleOptions: TypeOrmModuleOptions = {
   ...baseOptions,
