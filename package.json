@@ -18,6 +18,13 @@
     "docker:logs": "docker compose logs -f backend"
   },
   "devDependencies": {
-    "concurrently": "^9.2.1"
+    "@eslint/js": "^9.39.4",
+    "concurrently": "^9.2.1",
+    "eslint": "^9.39.4",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
+    "globals": "^17.5.0",
+    "prettier": "^3.8.3",
+    "typescript-eslint": "^8.59.0"
   }
 }
