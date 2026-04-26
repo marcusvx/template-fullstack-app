@@ -176,3 +176,31 @@ npm run test
 # run lint for all workspaces
 npm run lint
 ```
+
+## Backend migrations and seed
+
+The backend now uses TypeORM migrations (instead of `synchronize`) and includes a basic account seed.
+
+```bash
+# run pending migrations
+npm run --workspace @template/backend migration:run
+
+# seed default account(s)
+npm run --workspace @template/backend seed:account
+
+# run both in sequence
+npm run --workspace @template/backend db:setup
+```
+
+Useful migration helpers:
+
+```bash
+# create empty migration file
+npm run --workspace @template/backend migration:create
+
+# generate migration from entity diff
+npm run --workspace @template/backend migration:generate
+
+# rollback last migration
+npm run --workspace @template/backend migration:revert
+```
