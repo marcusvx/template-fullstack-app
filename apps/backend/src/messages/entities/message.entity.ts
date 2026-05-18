@@ -8,11 +8,11 @@ import {
 @Entity({ name: 'messages' })
 export class MessageEntity {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id!: string;
 
   @Column({ default: 'Hello World', length: 255 })
-  content: string;
+  content!: string;
 
   @CreateDateColumn({ name: 'created_at' })
-  createdAt: Date;
+  createdAt!: Date;
 }
