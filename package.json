@@ -6,6 +6,27 @@
   "workspaces": [
     "apps/*"
   ],
+  "overrides": {
+    "brace-expansion": "5.0.8",
+    "minimatch": "10.2.5",
+    "glob": "13.0.6",
+    "fork-ts-checker-webpack-plugin": {
+      "minimatch": "10.2.5"
+    },
+    "test-exclude": {
+      "glob": "13.0.6",
+      "minimatch": "10.2.5"
+    },
+    "@jest/reporters": {
+      "glob": "13.0.6"
+    },
+    "jest-config": {
+      "glob": "13.0.6"
+    },
+    "jest-runtime": {
+      "glob": "13.0.6"
+    }
+  },
   "scripts": {
     "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
     "dev:backend": "npm run start:dev --workspace @template/backend",
@@ -19,12 +40,12 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "concurrently": "^10.0.3",
-    "eslint": "^10.4.0",
+    "concurrently": "^10.0.4",
+    "eslint": "^10.8.0",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-prettier": "^5.5.5",
-    "globals": "^17.6.0",
-    "prettier": "^3.8.3",
-    "typescript-eslint": "^8.59.4"
+    "eslint-plugin-prettier": "^5.5.6",
+    "globals": "^17.7.0",
+    "prettier": "^3.9.6",
+    "typescript-eslint": "^8.65.0"
   }
 }
