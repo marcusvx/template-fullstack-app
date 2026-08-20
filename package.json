@@ -7,25 +7,7 @@
     "apps/*"
   ],
   "overrides": {
-    "brace-expansion": "5.0.8",
-    "minimatch": "10.2.5",
-    "glob": "13.0.6",
-    "fork-ts-checker-webpack-plugin": {
-      "minimatch": "10.2.5"
-    },
-    "test-exclude": {
-      "glob": "13.0.6",
-      "minimatch": "10.2.5"
-    },
-    "@jest/reporters": {
-      "glob": "13.0.6"
-    },
-    "jest-config": {
-      "glob": "13.0.6"
-    },
-    "jest-runtime": {
-      "glob": "13.0.6"
-    }
+    "brace-expansion": "5.0.9"
   },
   "scripts": {
     "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
@@ -33,19 +15,21 @@
     "dev:frontend": "npm run dev --workspace @template/frontend",
     "build": "npm run build --workspaces --if-present",
     "test": "npm run test --workspace @template/backend",
+    "test:e2e": "npm run test:e2e --workspace @template/backend",
     "lint": "npm run lint --workspaces --if-present",
+    "verify": "npm run lint && npm run build && npm run test",
     "docker:up": "docker compose up --build -d",
     "docker:down": "docker compose down",
     "docker:logs": "docker compose logs -f backend"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "concurrently": "^10.0.4",
-    "eslint": "^10.8.0",
+    "concurrently": "^10.0.5",
+    "eslint": "^10.8.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.6",
-    "globals": "^17.7.0",
+    "globals": "^17.11.0",
     "prettier": "^3.9.6",
-    "typescript-eslint": "^8.65.0"
+    "typescript-eslint": "^8.67.0"
   }
 }
